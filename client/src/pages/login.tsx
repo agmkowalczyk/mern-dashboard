@@ -1,16 +1,14 @@
 import { useLogin } from "@refinedev/core";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { ThemedTitleV2 } from "@refinedev/mui";
 
 import { CredentialResponse } from "../interfaces/google";
+import { yariga } from '@/assets'
 
-// Todo: Update your Google Client ID here
-const GOOGLE_CLIENT_ID =
-  "1041339102270-e1fpe2b6v6u1didfndh7jkjmpcashs4f.apps.googleusercontent.com";
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID
 
 export const Login: React.FC = () => {
   const { mutate: login } = useLogin<CredentialResponse>();
@@ -48,39 +46,27 @@ export const Login: React.FC = () => {
 
   return (
     <Container
+      component='main'
+      sx={{ backgroundColor: '#fcfcfc' }}
       style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        height: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <Box
-        display="flex"
-        gap="36px"
-        justifyContent="center"
-        flexDirection="column"
+        display='flex'
+        gap='36px'
+        justifyContent='center'
+        flexDirection='column'
       >
-        <ThemedTitleV2
-          collapsed={false}
-          wrapperStyles={{
-            fontSize: "22px",
-            justifyContent: "center",
-          }}
-        />
-
-        <GoogleButton />
-
-        <Typography align="center" color={"text.secondary"} fontSize="12px">
-          Powered by
-          <img
-            style={{ padding: "0 5px" }}
-            alt="Google"
-            src="https://refine.ams3.cdn.digitaloceanspaces.com/superplate-auth-icons%2Fgoogle.svg"
-          />
-          Google
+        <Typography align='center' color={'text.secondary'} fontSize='12px'>
+          <img style={{ padding: '0 5px' }} alt='Yariga' src={yariga} />
         </Typography>
+        
+        <GoogleButton />
       </Box>
     </Container>
-  );
+  )
 };
