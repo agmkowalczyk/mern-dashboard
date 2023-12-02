@@ -1,6 +1,13 @@
 import React, { useContext } from 'react'
 import { useGetIdentity } from '@refinedev/core'
-import { AppBar, Avatar, IconButton, Stack, Toolbar, Typography } from '@mui/material'
+import {
+  AppBar,
+  Avatar,
+  IconButton,
+  Stack,
+  Toolbar,
+  Typography,
+} from '@mui/material'
 import { DarkModeOutlined, LightModeOutlined } from '@mui/icons-material'
 import { ColorModeContext } from '../../../contexts/color-mode'
 
@@ -30,7 +37,9 @@ export const Header: React.FC = () => {
           alignItems='center'
           gap='10px'
         >
-          <IconButton onClick={setMode}>{mode === 'dark' ? <LightModeOutlined /> : <DarkModeOutlined />}</IconButton>
+          <IconButton onClick={setMode}>
+            {mode === 'dark' ? <LightModeOutlined /> : <DarkModeOutlined />}
+          </IconButton>
           {showUserInfo && (
             <Stack direction='row' gap='16px' alignItems='center'>
               {user.avatar && <Avatar src={user?.avatar} alt={user?.name} />}
