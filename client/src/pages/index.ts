@@ -1,13 +1,13 @@
-import AgentProfile from './agent-profile'
-import Agents from './agent'
-import AllProperties from './all-properties'
-import CreateProperty from './create-property'
+import { Agent as Agents, AgentProfile as AgentProfilePage } from './agent'
+import {
+  AllProperties,
+  CreateProperty,
+  EditProperty,
+  PropertyDetails,
+} from './properties'
 import Home from './home'
 import { Login } from './login'
 import MyProfile from './my-profile'
-import PropertyDetails from './property-details'
-import EditProperty from './edit-property'
-import AgentProfilePage from './agent-profile'
 
 export {
   AgentProfilePage,

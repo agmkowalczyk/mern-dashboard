@@ -20,7 +20,6 @@ import {
   ChevronLeft,
   ChevronRight,
   MenuRounded,
-  Dashboard,
 } from '@mui/icons-material'
 import {
   CanAccess,
@@ -31,7 +30,6 @@ import {
   useTranslate,
   useRouterContext,
   useMenu,
-  useRefineContext,
 } from '@refinedev/core'
 
 import { Title as DefaultTitle } from '../title'
@@ -47,8 +45,6 @@ export const Sider: typeof DefaultSider = ({ render }) => {
 
   const t = useTranslate()
   const { Link } = useRouterContext()
-  const { hasDashboard } = useRefineContext()
-
   const translate = useTranslate()
 
   const { menuItems, selectedKey, defaultOpenKeys } = useMenu()
@@ -206,7 +202,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
                   noWrap: true,
                   fontSize: '16px',
                   fontWeight: isSelected ? 'bold' : 'normal',
-                  color: isSelected ? '#fff' : '#808191',
+                  color: isSelected ? '#fff' : 'unset',
                   marginLeft: '10px',
                 }}
               />
@@ -216,57 +212,6 @@ export const Sider: typeof DefaultSider = ({ render }) => {
       )
     })
   }
-
-  const dashboard = hasDashboard ? (
-    <CanAccess resource='dashboard' action='list'>
-      <Tooltip
-        title={translate('dashboard.title', 'Dashboard')}
-        placement='right'
-        disableHoverListener={!collapsed}
-        arrow
-      >
-        <ListItemButton
-          component='a'
-          href='/'
-          selected={selectedKey === '/'}
-          onClick={() => {
-            setOpened(false)
-          }}
-          sx={{
-            pl: 2,
-            py: 1,
-            '&.Mui-selected': {
-              '&:hover': {
-                backgroundColor: 'transparent',
-              },
-              backgroundColor: 'transparent',
-            },
-            justifyContent: 'center',
-          }}
-        >
-          <ListItemIcon
-            sx={{
-              justifyContent: 'center',
-              minWidth: 36,
-              color: '#808191',
-              marginLeft: '6px',
-              marginRight: '14px',
-            }}
-          >
-            <Dashboard />
-          </ListItemIcon>
-          <ListItemText
-            primary={translate('dashboard.title', 'Dashboard')}
-            primaryTypographyProps={{
-              noWrap: true,
-              fontSize: '16px',
-              fontWeight: selectedKey === '/' ? 'bold' : 'normal',
-            }}
-          />
-        </ListItemButton>
-      </Tooltip>
-    </CanAccess>
-  ) : null
 
   const logout = isExistAuthentication && (
     <Tooltip
@@ -307,6 +252,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
   )
 
   const items = renderTreeView(menuItems, selectedKey)
+  const dashboard = null
 
   const renderSider = () => {
     if (render) {
@@ -327,7 +273,7 @@ export const Sider: typeof DefaultSider = ({ render }) => {
   }
 
   const drawer = (
-    <MuiList disablePadding sx={{ mt: 1, color: '#808191' }}>
+    <MuiList disablePadding sx={{ mt: 1 }}>
       {renderSider()}
     </MuiList>
   )
@@ -364,7 +310,6 @@ export const Sider: typeof DefaultSider = ({ render }) => {
             display: { sm: 'block', md: 'none' },
             '& .MuiDrawer-paper': {
               width: 256,
-              bgcolor: '#FCFCFC',
             },
           }}
         >
@@ -387,7 +332,6 @@ export const Sider: typeof DefaultSider = ({ render }) => {
             display: { xs: 'none', md: 'block' },
             '& .MuiDrawer-paper': {
               width: drawerWidth,
-              bgcolor: '#FCFCFC',
               overflow: 'hidden',
               transition: 'width 200ms cubic-bezier(0.4, 0, 0.6, 1) 0ms',
             },

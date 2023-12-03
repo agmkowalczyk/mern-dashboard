@@ -21,36 +21,25 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom'
 import { ColorModeContextProvider } from './contexts/color-mode'
 import { CredentialResponse } from './interfaces/google'
-import {
-  BlogPostCreate,
-  BlogPostEdit,
-  BlogPostList,
-  BlogPostShow,
-} from './pages/blog-posts'
-import {
-  CategoryCreate,
-  CategoryEdit,
-  CategoryList,
-  CategoryShow,
-} from './pages/categories'
 import { parseJwt } from './utils/parse-jwt'
-import { Header, Sider, Title } from './components'
 import {
   AccountCircleOutlined,
   ChatBubbleOutline,
+  Dashboard,
   PeopleAltOutlined,
   StarOutlineRounded,
   VillaOutlined,
 } from '@mui/icons-material'
+import { Header, Sider, Title } from './components'
 import {
   Login,
   Home,
   Agents,
-  MyProfile,
-  PropertyDetails,
-  AllProperties,
-  CreateProperty,
   AgentProfilePage,
+  MyProfile,
+  AllProperties,
+  PropertyDetails,
+  CreateProperty,
   EditProperty,
 } from './pages'
 
@@ -68,19 +57,39 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
   return request
 })
 
+const SERVER_URL = import.meta.env.VITE_SERVER_URL
+const SERVER_API = import.meta.env.VITE_SERVER_API
+
 function App() {
   const authProvider: AuthBindings = {
     login: async ({ credential }: CredentialResponse) => {
       const profileObj = credential ? parseJwt(credential) : null
 
       if (profileObj) {
-        localStorage.setItem(
-          'user',
-          JSON.stringify({
-            ...profileObj,
+        const response = await fetch(`${SERVER_URL}${SERVER_API}/users`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: profileObj.name,
+            email: profileObj.email,
             avatar: profileObj.picture,
-          })
-        )
+          }),
+        })
+
+        const data = await response.json()
+
+        if (response.status === 200) {
+          localStorage.setItem(
+            'user',
+            JSON.stringify({
+              ...profileObj,
+              avatar: profileObj.picture,
+              userid: data._id,
+            })
+          )
+        } else {
+          return Promise.reject()
+        }
 
         localStorage.setItem('token', `${credential}`)
 
@@ -153,39 +162,31 @@ function App() {
           <GlobalStyles styles={{ html: { WebkitFontSmoothing: 'auto' } }} />
           <RefineSnackbarProvider>
             <Refine
-              dataProvider={dataProvider('https://api.fake-rest.refine.dev')}
+              dataProvider={dataProvider(`${SERVER_URL}${SERVER_API}`)}
               notificationProvider={notificationProvider}
               routerProvider={routerBindings}
               authProvider={authProvider}
               resources={[
-                // {
-                //   name: 'blog_posts',
-                //   list: '/blog-posts',
-                //   create: '/blog-posts/create',
-                //   edit: '/blog-posts/edit/:id',
-                //   show: '/blog-posts/show/:id',
-                //   meta: {
-                //     canDelete: true,
-                //   },
-                // },
-                // {
-                //   name: 'categories',
-                //   list: '/categories',
-                //   create: '/categories/create',
-                //   edit: '/categories/edit/:id',
-                //   show: '/categories/show/:id',
-                //   meta: {
-                //     canDelete: true,
-                //   },
-                // },
                 {
-                  name: 'property',
+                  name: 'dashboard',
+                  list: '/',
+                  meta: {
+                    label: 'Dashboard',
+                    icon: <Dashboard />,
+                  },
+                },
+                {
+                  name: 'properties',
                   list: 'properties',
+                  create: 'properties/create',
+                  edit: 'properties/edit/:id',
+                  show: 'properties/show/:id',
                   meta: { icon: <VillaOutlined /> },
                 },
                 {
                   name: 'agent',
                   list: 'agents',
+                  show: 'agents/show/:id',
                   meta: { icon: <PeopleAltOutlined /> },
                 },
                 {
@@ -204,7 +205,7 @@ function App() {
                     label: 'My Profile',
                     icon: <AccountCircleOutlined />,
                   },
-                  list: 'my-profiles',
+                  list: 'my-profile',
                 },
               ]}
               options={{
@@ -213,7 +214,6 @@ function App() {
                 useNewQueryKeys: true,
                 projectId: 'NFCF6h-eaiEFJ-kAj4Nn',
               }}
-              DashboardPage={Home}
             >
               <Routes>
                 <Route
@@ -232,21 +232,25 @@ function App() {
                     </Authenticated>
                   }
                 >
-                  <Route
-                    index
-                    element={<NavigateToResource resource='blog_posts' />}
-                  />
-                  <Route path='/blog-posts'>
-                    <Route index element={<BlogPostList />} />
-                    <Route path='create' element={<BlogPostCreate />} />
-                    <Route path='edit/:id' element={<BlogPostEdit />} />
-                    <Route path='show/:id' element={<BlogPostShow />} />
+                  <Route index element={<Home />} />
+                  <Route path='/properties'>
+                    <Route index element={<AllProperties />} />
+                    <Route path='create' element={<CreateProperty />} />
+                    <Route path='edit/:id' element={<EditProperty />} />
+                    <Route path='show/:id' element={<PropertyDetails />} />
                   </Route>
-                  <Route path='/categories'>
-                    <Route index element={<CategoryList />} />
-                    <Route path='create' element={<CategoryCreate />} />
-                    <Route path='edit/:id' element={<CategoryEdit />} />
-                    <Route path='show/:id' element={<CategoryShow />} />
+                  <Route path='/agents'>
+                    <Route index element={<Agents />} />
+                    <Route path='show/:id' element={<AgentProfilePage />} />
+                  </Route>
+                  <Route path='/reviews'>
+                    <Route index element={<Home />} />
+                  </Route>
+                  <Route path='/messages'>
+                    <Route index element={<Home />} />
+                  </Route>
+                  <Route path='/my-profile'>
+                    <Route index element={<MyProfile />} />
                   </Route>
                   <Route path='*' element={<ErrorComponent />} />
                 </Route>
