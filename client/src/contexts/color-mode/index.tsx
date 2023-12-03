@@ -1,6 +1,9 @@
 import { ThemeProvider } from '@mui/material/styles'
 import React, { createContext, useEffect, useState, ReactNode } from 'react'
-import { DarkTheme, LightTheme } from '@refinedev/mui'
+import {
+  DarkThemeWithResponsiveFontSizes as DarkTheme,
+  LightThemeWithResponsiveFontSizes as LightTheme,
+} from '../../theme'
 
 type ColorModeContextType = {
   mode: string
