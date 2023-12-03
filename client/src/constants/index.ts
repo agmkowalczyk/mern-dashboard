@@ -31,7 +31,7 @@ export const pieChartData = [
     title: 'Properties for Sale',
     value: 684,
     series: [75, 25],
-    colors: ['#275be8', '#c4e8ef'],
+    colors: ['#6C5DD3', '#CFC8FF'],
   },
 
   {
