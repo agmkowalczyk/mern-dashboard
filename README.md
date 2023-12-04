@@ -19,7 +19,7 @@ MERN project dashboard (React, Vite, TypeScript, Refine, Mongoose, MUI)
 
 ## Image
 
-![preview](https://github.com/agmkowalczyk/mern-dashboard/blob/main/screenshots/mern_dashboard_1.png 'MERN Dashboard')
-![preview](https://github.com/agmkowalczyk/mern-dashboard/blob/main/screenshots/mern_dashboard_3.png 'MERN Dashboard')
-![preview](https://github.com/agmkowalczyk/mern-dashboard/blob/main/screenshots/mern_dashboard_4.png 'MERN Dashboard')
-![preview](https://github.com/agmkowalczyk/mern-dashboard/blob/main/screenshots/mern_dashboard_2.png 'MERN Dashboard')
+![preview](https://github.com/agmkowalczyk/mern-dashboard/blob/main/screenshots/mern-dashboard_1.png 'MERN Dashboard')
+![preview](https://github.com/agmkowalczyk/mern-dashboard/blob/main/screenshots/mern-dashboard_3.png 'MERN Dashboard')
+![preview](https://github.com/agmkowalczyk/mern-dashboard/blob/main/screenshots/mern-dashboard_4.png 'MERN Dashboard')
+![preview](https://github.com/agmkowalczyk/mern-dashboard/blob/main/screenshots/mern-dashboard_2.png 'MERN Dashboard')
