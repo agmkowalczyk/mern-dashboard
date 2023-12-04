@@ -2,20 +2,13 @@ import {
   Box,
   Stack,
   Typography,
-  TextField,
-  FormControl,
-  FormHelperText,
-  TextareaAutosize,
-  MenuItem,
-  Select,
-  Button,
   Card,
   CardMedia,
   CardContent,
 } from '@mui/material'
-import { PropertyCardProps } from '../../interfaces/property'
 import { Link } from 'react-router-dom'
 import { Place } from '@mui/icons-material'
+import { PropertyCardProps } from '../../interfaces/property'
 
 const PropertyCard = ({
   id,
@@ -35,7 +28,6 @@ const PropertyCard = ({
           boxShadow: '0 22px 45px 2px rgba(176, 176, 176, 0.1)',
         },
         cursor: 'pointer',
-        textDecoration: 'none',
       }}
       elevation={0}
     >
