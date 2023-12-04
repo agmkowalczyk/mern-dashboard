@@ -21,7 +21,6 @@ const Form = ({
   handleImageChange,
   formLoading,
   onFinishHandler,
-  onFinish,
   propertyImage,
 }: FormProps) => {
   return (
@@ -204,6 +203,18 @@ const Form = ({
             >
               {propertyImage?.name}
             </Typography>
+
+            {propertyImage?.url && (
+              <Box flex={1} maxWidth={764}>
+                <img
+                  src={propertyImage.url}
+                  alt='property_details-img'
+                  height={546}
+                  style={{ objectFit: 'cover', borderRadius: '10px' }}
+                  className='property_details-img'
+                />
+              </Box>
+            )}
           </Stack>
 
           <CustomButton

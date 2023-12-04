@@ -1,12 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import {
-  Box,
-  Stack,
-  Typography,
-  TextField,
-  Select,
-  MenuItem,
-} from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import { useDelete, useGetIdentity, useShow } from '@refinedev/core'
 import {
   ChatBubble,
@@ -17,12 +10,7 @@ import {
   Star,
 } from '@mui/icons-material'
 import { CustomButton } from '../../components'
-
-const checkImage = (url: any) => {
-  let img = new Image()
-  img.src = url
-  return img.width !== 0 && img.height !== 0
-}
+import { checkImage } from '../../utils/checkImage'
 
 const PropertyDetails = () => {
   const navigate = useNavigate()

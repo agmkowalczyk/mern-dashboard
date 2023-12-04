@@ -26,7 +26,7 @@ const AllProperties = () => {
     setSorter,
     filters,
     setFilters,
-  } = useTable()
+  } = useTable({ initialPageSize: 12 })
 
   const allProperties = data?.data ?? []
 
@@ -37,7 +37,6 @@ const AllProperties = () => {
   }
 
   const currentFilterValues = useMemo(() => {
-    console.log(9, filters)
     const logicalFilters = filters.flatMap((item) =>
       'field' in item ? item : []
     )
@@ -198,13 +197,13 @@ const AllProperties = () => {
             displayEmpty
             required
             inputProps={{ 'aria-label': 'Without label' }}
-            defaultValue={10}
-            sx={{ backgroundColor: '#f0f0f0'}}
+            defaultValue={12}
+            sx={{ backgroundColor: '#f0f0f0' }}
             onChange={(e) =>
-              setPageSize(e.target.value ? Number(e.target.value) : 10)
+              setPageSize(e.target.value ? Number(e.target.value) : 12)
             }
           >
-            {[10, 20, 30, 40, 50].map((size) => (
+            {[12, 24, 60].map((size) => (
               <MenuItem key={size} value={size}>
                 Show {size}
               </MenuItem>
